@@ -5,6 +5,7 @@ var bcrypt = require('bcrypt');
 
 
 router.post('/', function(req, res, next) {
+  console.log('made it to the login route!');
     knex('users')
         .where('email', req.body.email)
         .first()

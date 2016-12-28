@@ -4,6 +4,7 @@ var knex = require('../db/knex');
 var bcrypt = require('bcrypt');
 
 router.post('/', function(req, res, next) {
+  console.log('made it to the signup route!');
     knex('users')
         .where('email', req.body.email)
         .then(function(user) {
@@ -16,6 +17,8 @@ router.post('/', function(req, res, next) {
                     email: req.body.email,
                     password: hashed_password
                 }]
+
+                console.log('newUser in server:', newUser);
 
                 knex('users')
                     .insert(newUser, 'id')
@@ -42,11 +45,15 @@ router.post('/', function(req, res, next) {
                         })
                     })
             } else {
-              const error = ['Email is already in use. Please login.']
+              const error = 'Email is already in use. Please login.'
               res.json(error)
             }
 
         })
+})
+
+router.get('/', function (req, res, next) {
+  res.json('The server is working')
 })
 
 
