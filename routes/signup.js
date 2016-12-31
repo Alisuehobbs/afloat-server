@@ -45,7 +45,7 @@ router.post('/', function(req, res, next) {
                         })
                     })
             } else {
-              const error = 'Email is already in use. Please login.'
+              const error = ['Email is already in use. Please login.']
               res.json(error)
             }
 
