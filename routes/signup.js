@@ -4,7 +4,7 @@ var knex = require('../db/knex');
 var bcrypt = require('bcrypt');
 
 router.post('/', function(req, res, next) {
-  console.log('made it to the signup route!');
+    console.log('made it to the signup route!');
     knex('users')
         .where('email', req.body.email)
         .then(function(user) {
@@ -23,37 +23,37 @@ router.post('/', function(req, res, next) {
                 knex('users')
                     .insert(newUser, 'id')
                     .then(function(user) {
-                      const id = user[0]
-                      const setupActivities =[{
-                        users_id: id,
-                        activity: req.body.activity1.toLowerCase()
-                      },
-                      {
-                        users_id: id,
-                        activity: req.body.activity2.toLowerCase()
-                      },
-                      {
-                        users_id: id,
-                        activity: req.body.activity3.toLowerCase()
-                      }
-                    ]
-                      knex('user_activities')
-                        .insert(setupActivities, '*')
-                        .then(function(data) {
-                          newUser[0].id = data[0].users_id
-                          res.json(newUser)
-                        })
+                        const id = user[0]
+                        const setupActivities = [{
+                            users_id: id,
+                            activity: req.body.activity1.toLowerCase()
+                        }, {
+                            users_id: id,
+                            activity: req.body.activity2.toLowerCase()
+                        }, {
+                            users_id: id,
+                            activity: req.body.activity3.toLowerCase()
+                        }]
+                        knex('user_activities')
+                            .insert(setupActivities, '*')
+                            .then(function(data) {
+                                newUser[0].id = data[0].users_id
+                                delete newUser.password
+                                res.json(newUser)
+                            })
                     })
             } else {
-              const error = ['Email is already in use. Please login.']
-              res.json(error)
+                const error = {
+                    message: 'Email is already in use. Please login.'
+                }
+                res.json(error)
             }
 
         })
 })
 
-router.get('/', function (req, res, next) {
-  res.json('The server is working')
+router.get('/', function(req, res, next) {
+    res.json('The server is working')
 })
 
 
