@@ -38,7 +38,7 @@ router.post('/', function(req, res, next) {
                             .insert(setupActivities, '*')
                             .then(function(data) {
                                 newUser[0].id = data[0].users_id
-                                delete newUser.password
+                                delete newUser[0].password
                                 res.json(newUser)
                             })
                     })
