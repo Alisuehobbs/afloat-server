@@ -11,4 +11,13 @@ router.get('/:id', function(req, res, next) {
         })
 })
 
+router.post('/', function(req, res, next) {
+    console.log('made it to the right route');
+    knex('user_moods')
+        .insert(req.body)
+        .then(function() {
+          res.json('mood successfully submitted')
+        })
+})
+
 module.exports = router;
