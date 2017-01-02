@@ -9,6 +9,7 @@ var signup = require('./routes/signup');
 var login = require('./routes/login');
 var correlations = require('./routes/correlations');
 var moods = require('./routes/moods');
+var activities = require('./routes/activities');
 
 var app = express();
 
@@ -28,6 +29,7 @@ app.use('/signup', signup);
 app.use('/login', login);
 app.use('/correlations', correlations);
 app.use('/moods', moods);
+app.use('/activities', activities);
 
 const port = process.env.PORT || 8000;
 
