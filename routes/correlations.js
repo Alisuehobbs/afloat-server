@@ -4,28 +4,12 @@ var knex = require('../db/knex');
 var bcrypt = require('bcrypt');
 
 
-router.post('/', function(req, res, next) {
+router.get('/:id', function(req, res, next) {
     knex('correlations')
-        .where('email', req.body.email)
-        .first()
-        .then(function(user) {
-            if (user) {
-                const passwordMatch = bcrypt.compareSync(req.body.password, user.password)
-                if (passwordMatch === true) {
-                    res.json(user)
-                } else {
-                    const error = {
-                      message: 'Incorrect email or password'
-                    }
-                    res.json(error)
-                }
-            } else {
-                const error = {
-                  message: 'Email does not exist. Please sign up.'
-                }
-                res.json(error)
-            }
-
+        .leftJoin('user_activities', 'activity_id', 'user_activities.id')
+        .where('correlations.users_id', req.params.id)
+        .then(function(data) {
+          res.json(data)
         })
 })
 
