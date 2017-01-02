@@ -11,13 +11,12 @@ router.get('/:id', function(req, res, next) {
         })
 })
 
-// router.post('/', function(req, res, next) {
-//     console.log('made it to the right route');
-//     knex('user_activities')
-//         .insert(req.body)
-//         .then(function() {
-//           res.json('mood successfully submitted')
-//         })
-// })
+router.post('/', function(req, res, next) {
+    knex('user_activities')
+        .insert(req.body)
+        .then(function() {
+          res.json('activity successfully submitted')
+        })
+})
 
 module.exports = router;
