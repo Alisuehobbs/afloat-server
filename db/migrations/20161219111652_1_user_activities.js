@@ -3,6 +3,7 @@ exports.up = function(knex) {
         table.increments();
         table.integer('users_id').notNullable().references('id').inTable('users').onDelete('CASCADE');
         table.string('activity').notNullable();
+        table.integer('weight').notNullable();
         table.timestamps(true, true);
     })
 }

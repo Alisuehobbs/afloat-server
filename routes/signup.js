@@ -4,7 +4,6 @@ var knex = require('../db/knex');
 var bcrypt = require('bcrypt');
 
 router.post('/', function(req, res, next) {
-    console.log('made it to the signup route!');
     knex('users')
         .where('email', req.body.email)
         .then(function(user) {
@@ -18,21 +17,22 @@ router.post('/', function(req, res, next) {
                     password: hashed_password
                 }]
 
-                console.log('newUser in server:', newUser);
-
                 knex('users')
                     .insert(newUser, 'id')
                     .then(function(user) {
                         const id = user[0]
                         const setupActivities = [{
                             users_id: id,
-                            activity: req.body.activity1.toLowerCase()
+                            activity: req.body.activity1.toLowerCase(),
+                            weight: 1
                         }, {
                             users_id: id,
-                            activity: req.body.activity2.toLowerCase()
+                            activity: req.body.activity2.toLowerCase(),
+                            weight: 1
                         }, {
                             users_id: id,
-                            activity: req.body.activity3.toLowerCase()
+                            activity: req.body.activity3.toLowerCase(),
+                            weight: 1
                         }]
                         knex('user_activities')
                             .insert(setupActivities, '*')
