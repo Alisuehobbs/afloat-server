@@ -19,4 +19,13 @@ router.post('/', function(req, res, next) {
         })
 })
 
+router.put('/:id', function(req, res, next) {
+    knex('user_activities')
+        .where('id', req.params.id)
+        .update(req.body)
+        .then(function() {
+          res.json('weight successfully updated')
+        })
+})
+
 module.exports = router;
