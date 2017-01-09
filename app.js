@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var cors = require('cors');
 
 var signup = require('./routes/signup');
 var login = require('./routes/login');
@@ -24,6 +25,8 @@ app.use(cookieParser());
 //   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 //   next();
 // });
+
+app.use(cors())
 
 app.use('/signup', signup);
 app.use('/login', login);
